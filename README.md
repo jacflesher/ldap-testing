@@ -2,9 +2,8 @@
 
 
 
-1. Create LDIF file (./fake-tree.ldif)
+1. Create LDIF file containing the following contents (./fake-tree.ldif)
 ```
-cat <<EOF > ./fake-tree.ldif
 # 1. Organizational Units
 dn: ou=People,dc=example,dc=org
 objectClass: organizationalUnit
@@ -63,7 +62,6 @@ cn: AllStaff
 member: cn=Alice Admin,ou=IT,ou=People,dc=example,dc=org
 member: cn=Bob Builder,ou=IT,ou=People,dc=example,dc=org
 member: cn=Charlie Check,ou=HR,ou=People,dc=example,dc=org
-EOF
 ```
 
 2. Set podman container as rootful
