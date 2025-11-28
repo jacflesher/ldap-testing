@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create New LDAP User</title>
+</head>
+<body>
+
+<h1>Create New User</h1>
+
+<div th:if="${param.success}" style="color: green;">
+    User created successfully!
+</div>
+
+<div th:if="${error}" style="color: red;">
+    <p th:text="${error}"></p>
+</div>
+
+<form th:action="@{/users/create}"
+      th:object="${userForm}"
+      method="post">
+
+    <div>
+        <label for="firstName">First Name (givenName):</label>
+        <input type="text" id="firstName" th:field="*{firstName}" required>
+    </div>
+    <br>
+
+    <div>
+        <label for="lastName">Last Name (sn):</label>
+        <input type="text" id="lastName" th:field="*{lastName}" required>
+    </div>
+    <br>
+
+    <div>
+        <label for="uid">Login ID (uid):</label>
+        <input type="text" id="uid" th:field="*{uid}" required>
+    </div>
+    <br>
+
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" th:field="*{password}" required>
+    </div>
+    <br>
+
+    <div>
+        <label for="ou">Organizational Unit (e.g., IT, HR):</label>
+        <input type="text" id="ou" th:field="*{organizationalUnit}" value="IT" required>
+    </div>
+    <br>
+
+    <div>
+        <button type="submit">Create User</button>
+    </div>
+</form>
+
+</body>
+</html>

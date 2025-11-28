@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete LDAP User</title>
+</head>
+<body>
+
+<h1>Delete Existing User</h1>
+
+<div th:if="${param.deletedCn}" style="color: green;">
+    User <strong th:text="${param.deletedCn}"></strong> was successfully deleted!
+</div>
+
+<div th:if="${error}" style="color: red;">
+    <p th:text="${error}"></p>
+</div>
+
+<form th:action="@{/users/delete}"
+      method="post">
+
+    <div>
+        <label for="cnToDelete">Common Name (CN) to Delete:</label>
+        <input type="text" id="cnToDelete" name="cnToDelete"
+               placeholder="e.g., Alice Admin" required>
+        <p>
+            <small>The CN must exactly match the entry you want to delete
+                (e.g., 'cn=Alice Admin').</small>
+        </p>
+    </div>
+    <br>
+
+    <div>
+        <button type="submit" style="background-color: red; color: white;">Delete User</button>
+    </div>
+</form>
+
+</body>
+</html>
