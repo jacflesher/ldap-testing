@@ -64,17 +64,11 @@ member: cn=Bob Builder,ou=IT,ou=People,dc=example,dc=org
 member: cn=Charlie Check,ou=HR,ou=People,dc=example,dc=org
 ```
 
-1. Set podman container as rootful
-```
-podman machine stop
-podman machine set --rootful
-podman machine start
-```
 
 1. Run the openldap image
 ```
 podman run --name openldap-custom \
---port 389:389 \
+--p 1389:389 \
 --detach "docker.io/osixia/openldap:latest" \
 --copy-service
 ```
