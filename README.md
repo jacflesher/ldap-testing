@@ -68,20 +68,20 @@ member: cn=Charlie Check,ou=HR,ou=People,dc=example,dc=org
 1. Run the openldap image
 ```
 podman run --name openldap-custom \
---p 1389:389 \
+-p 1389:389 \
 --detach "docker.io/osixia/openldap:latest" \
 --copy-service
 ```
 
 1. Update running image with LDIF data
 ```
-ldapadd -x -H "ldap://localhost:389" -D "cn=admin,dc=example,dc=org" -w "admin" -f ./fake-tree.ldif
+ldapadd -x -H "ldap://localhost:1389" -D "cn=admin,dc=example,dc=org" -w "admin" -f ./fake-tree.ldif
 ```
 
 
 1. ldapsearch domain tree query for test
 ```
-ldapsearch -x -H "ldap://localhost:389" \
+ldapsearch -x -H "ldap://localhost:1389" \
   -b "dc=example,dc=org" \
   -D "cn=admin,dc=example,dc=org" \
   -w "admin"
@@ -89,7 +89,7 @@ ldapsearch -x -H "ldap://localhost:389" \
 
 1. ldapsearch user query for test
 ```
-ldapsearch -x -H "ldap://localhost:389" \
+ldapsearch -x -H "ldap://localhost:1389" \
 -b "dc=example,dc=org" \
 -D "cn=admin,dc=example,dc=org"   \
 -w "admin" "uid=alice"
