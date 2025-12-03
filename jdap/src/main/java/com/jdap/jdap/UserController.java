@@ -54,7 +54,7 @@ public class UserController {
     @PostMapping("/delete")
     public String deleteUser(@RequestParam("cnToDelete") String cn, Model model) {
         try {
-            userService.deleteUser(cn);
+            userService.deleteUser(cn, "IT");
 
             model.addAttribute("message", "User " + cn + " deleted successfully!");
             return "redirect:/users/delete?deletedCn=" + cn;
