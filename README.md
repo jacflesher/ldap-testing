@@ -67,21 +67,34 @@ member: cn=Charlie Check,ou=HR,ou=People,dc=example,dc=org
 2. Set podman container as rootful
 ```
 podman machine stop
-podman machine set --rootful
+podman machine set --rootful #(Not needed if using ports >1000)
 podman machine start
+```
+
+1. Pull the image into podman
+```
+podman pull "docker.io/osixia/openldap:latest"
+```
+
+1. Run the container from the image
+```
+podman run --name openldap-custom \
+-p 1389:389 \
+--detach docker.io/osixia/openldap:latest \
+--copy-service
 ```
 
 3. Copy the LDIF file into the running container
 ```
-podman run --name openldap-custom \
--p 389:389 \
--v ./fake-tree.ldif:/container/service/slapd/assets/config/bootstrap/ldif/custom/fake-tree.ldif \
---detach docker.io/osixia/openldap:latest --copy-service
+ldapadd -x -H "ldap://localhost:1389" \
+-D "cn=admin,dc=example,dc=org" \
+-w "admin" \
+-f ./fake-tree.ldif
 ```
 
 4. ldapsearch domain tree query
 ```
-ldapsearch -x -H "ldap://localhost:389" \
+ldapsearch -x -H "ldap://localhost:1389" \
   -b "dc=example,dc=org" \
   -D "cn=admin,dc=example,dc=org" \
   -w "admin"
@@ -89,7 +102,7 @@ ldapsearch -x -H "ldap://localhost:389" \
 
 5. ldapsearch user query
 ```
-ldapsearch -x -H "ldap://localhost:389" \
+ldapsearch -x -H "ldap://localhost:1389" \
 -b "dc=example,dc=org" \
 -D "cn=admin,dc=example,dc=org"   \
 -w "admin" "uid=alice"
