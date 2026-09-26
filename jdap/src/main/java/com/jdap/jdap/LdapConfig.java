@@ -10,15 +10,9 @@ import org.springframework.ldap.core.support.LdapContextSource;
 @Configuration
 public class LdapConfig {
 
-    @Value("${spring.ldap.urls}")
-    private String ldapUrls;
-
-    @Value("${spring.security.ldap.manager-dn}")
-    private String managerDn;
-
-    @Value("${spring.security.ldap.manager-password}")
-    private String managerPassword;
-
+    @Value("${spring.ldap.urls}") private String ldapUrls;
+    @Value("${spring.security.ldap.manager-dn}") private String managerDn;
+    @Value("${spring.security.ldap.manager-password}") private String managerPassword;
 
     // Explicitly defines the ContextSource used for modifications
     @Bean
@@ -33,7 +27,6 @@ public class LdapConfig {
         // This is key: tell it where to start searches
         // The base is often defined separately, but setting it here is clean
 //        contextSource.setBase("");
-
         return contextSource;
     }
 
